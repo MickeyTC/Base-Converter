@@ -14,8 +14,8 @@
                                 <tr>
                                     <td>{{$product->name}}</td>
                                     <td>{{$product->brand}}</td>
-                                    <td>{{$product->price}}</td>
                                     <td>{{$product->model}}</td>
+                                    <td>{{$product->price}}</td>
                                     <td>{{$product->unit}}</td>
                                     <td>{{$product->note}}</td>
                                 </tr>
