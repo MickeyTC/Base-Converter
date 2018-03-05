@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor(private _electronService: ElectronService) {}
+
+  launchWindow() {
+    this._electronService.shell.openExternal('https://www.google.co.th/');
+  }
 }
