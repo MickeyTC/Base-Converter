@@ -4,15 +4,18 @@
     <label>From:</label>
     <mat-form-field class="base-width">
       <input matInput formControlName="base1" type="number" placeholder="Base" [(ngModel)]="base1" min="2" max="36" onclick="this.select();" />
+      <mat-error *ngIf="form.controls['base1'].invalid">{{ getBaseError(form.controls['base1']) }}</mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
       <input matInput formControlName="number1" placeholder="Number" [(ngModel)]="num1" onclick="this.select();" />
+      <mat-error *ngIf="form.controls['number1'].invalid">{{ getNumberError(form.controls['number1']) }}</mat-error>
     </mat-form-field>
   </div>
   <div class="line-container">
     <label>To:</label>
     <mat-form-field class="base-width">
       <input matInput formControlName="base2" type="number" placeholder="Base" [(ngModel)]="base2" min="2" max="36" onclick="this.select();" />
+      <mat-error *ngIf="form.controls['base2'].invalid">{{ getBaseError(form.controls['base2']) }}</mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
       <input matInput formControlName="number2" placeholder="Number" [ngModel]="num2 | uppercase" onclick="this.select();" />

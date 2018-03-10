@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { BaseConverterService } from '../base-converter.service';
@@ -65,5 +65,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  getBaseError(fc: FormControl): string {
+    // console.log(fc.errors);
+    return fc.errors.required ? 'Required' : fc.errors.min || fc.errors.max ? '2 <= Base <= 36' : '';
+  }
+
+  getNumberError(fc: FormControl): string {
+    // console.log(fc.errors);
+    return fc.errors.required ? 'Required' : '';
   }
 }
