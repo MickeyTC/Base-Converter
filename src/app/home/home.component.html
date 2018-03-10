@@ -1,0 +1,21 @@
+<h1>Base Converter</h1>
+<form [formGroup]="form" class="container">
+  <div class="line-container">
+    <label>From:</label>
+    <mat-form-field class="base-width">
+      <input matInput formControlName="base1" type="number" placeholder="Base" [(ngModel)]="base1" min="2" max="36" onclick="this.select();" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="number1" placeholder="Number" [(ngModel)]="num1" onclick="this.select();" />
+    </mat-form-field>
+  </div>
+  <div class="line-container">
+    <label>To:</label>
+    <mat-form-field class="base-width">
+      <input matInput formControlName="base2" type="number" placeholder="Base" [(ngModel)]="base2" min="2" max="36" onclick="this.select();" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="number2" placeholder="Number" [(ngModel)]="num2" onclick="this.select();" />
+    </mat-form-field>
+  </div>
+</form>

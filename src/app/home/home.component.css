@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.line-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+label {
+    display: inline-block;
+    width: 5rem;
+    text-align: right;
+    padding-right: 1rem;
+    flex-shrink: 0;
+}
+
+.base-width {
+    width: 5rem;
+    padding-right: 1rem;
+}
+
+.full-width {
+    width: auto;
+    padding-right: 3rem;
+    flex-grow: 1;
+}
