@@ -21,16 +21,16 @@ export class BaseConverterService {
   }
 
   static toDec(n: string, base: number): number {
-    n = n.trim();
-    const dots: string[] = n.split('.');
+    let num = n.trim();
+    const dots: string[] = num.split('.');
     let power = 0;
     if (dots.length === 2) {
-      power = n.length - 1 - n.indexOf('.');
-      n = dots[0] + dots[1];
+      power = num.length - 1 - num.indexOf('.');
+      num = dots[0] + dots[1];
     } else if (dots.length > 2) {
       return Number.NaN;
     }
 
-    return Number.parseInt(n, base) * Math.pow(base, -power);
+    return Number.parseInt(num, base) * Math.pow(base, -power);
   }
 }
