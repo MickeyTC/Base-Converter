@@ -15,7 +15,7 @@
       <input matInput formControlName="base2" type="number" placeholder="Base" [(ngModel)]="base2" min="2" max="36" onclick="this.select();" />
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput formControlName="number2" placeholder="Number" [(ngModel)]="num2" onclick="this.select();" />
+      <input matInput formControlName="number2" placeholder="Number" [ngModel]="num2 | uppercase" onclick="this.select();" />
     </mat-form-field>
   </div>
 </form>

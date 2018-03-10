@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.form.get('number1').valueChanges.subscribe(
         (number1) => {
           if (this.form.controls['number1'].valid) {
+            this.num1 = this.num1.toUpperCase();
             this.num2 = BaseConverterService.convert(number1, this.base1, this.base2);
           }
         }
