@@ -82,14 +82,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getBaseError(fc: FormControl): string {
-    console.log('Base', fc.errors);
+    // console.log('Base', fc.errors);
     return fc.errors.required ? 'Required' :
       fc.errors.min || fc.errors.max ? '2 <= Base <= 36' :
         fc.errors.pattern ? 'Base must be Integer' : '';
   }
 
   getNumberError(fc: FormControl): string {
-    console.log('Number', fc.errors);
+    // console.log('Number', fc.errors);
     return fc.errors.required ? 'Required' :
       fc.errors.pattern ? 'Must be Number' :
         fc.errors.baseCompatible ? 'Not Compatible Base' : '';
@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
       const number = control.value;
       const base = baseControl.value;
-      console.log(number, base);
+      // console.log(number, base);
       return BaseConverterService.isCompatible(number, base) ? null : { 'baseCompatible': { 'base': base } };
     };
   }

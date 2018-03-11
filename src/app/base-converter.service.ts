@@ -35,6 +35,13 @@ export class BaseConverterService {
   }
 
   static isCompatible(num: string, base: number): boolean {
+    const char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const number = num.trim().toUpperCase();
+    for (const d of number) {
+      if (char.indexOf(d) >= base) {
+        return false;
+      }
+    }
     return true;
   }
 }
