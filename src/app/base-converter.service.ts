@@ -5,22 +5,17 @@ export class BaseConverterService {
 
   constructor() { }
 
-  private static filterInt(num: string): number {
-    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(num)) {
-      return Number(num);
-    }
-    return Number.NaN;
-  }
-
   static convert(n: string, fromBase: number, toBase: number): string {
-    return this.decToBase(this.toDec(n, fromBase), toBase);
+    if (!(n && fromBase && toBase)) { return null; }
+    return fromBase === toBase ? n : this.decToBase(this.toDec(n, fromBase), toBase);
   }
 
   static decToBase(nDec: number, base: number): string {
-    return Number(nDec).toString(base);
+    return nDec && base ? nDec.toString(base) : null;
   }
 
   static toDec(n: string, base: number): number {
+    if (!this.isCompatible(n, base)) { return Number.NaN; }
     let num = n.trim();
     const dots: string[] = num.split('.');
     let power = 0;

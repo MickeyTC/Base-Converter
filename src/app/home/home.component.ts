@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
   }
 
-  convert(number: string, fromBase: number, toBase: number): string {
-    return BaseConverterService.convert(number, fromBase, toBase);
+  convert(num: string, fromBase: number, toBase: number): string {
+    return num && fromBase && toBase ? BaseConverterService.convert(num, fromBase, toBase) : null;
   }
 }
