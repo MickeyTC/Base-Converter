@@ -15,11 +15,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private subscriptions = new Subscription();
 
-  private form: FormGroup;
-  private num1 = '15';
-  private num2 = '1111';
-  private base1 = 10;
-  private base2 = 2;
+  form: FormGroup;
+  num1 = '15';
+  num2 = '1111';
+  base1 = 10;
+  base2 = 2;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute) { }
 
@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           if (number1) { this.num1 = number1.toUpperCase(); }
           if (this.form.get('base1').valid && this.form.get('base2').valid && this.form.get('number1').valid) {
             this.num2 = this.convert(number1, this.base1, this.base2);
+          } else {
+            this.num2 = 'Invalid';
           }
         }
       )
@@ -55,6 +57,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.form.get('number1').updateValueAndValidity();
           if (this.form.get('base1').valid && this.form.get('base2').valid && this.form.get('number1').valid) {
             this.num2 = this.convert(this.num1, base1, this.base2);
+          } else {
+            this.num2 = 'Invalid';
           }
         }
       )
@@ -65,6 +69,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.form.get('base2').markAsTouched();
           if (this.form.get('base1').valid && this.form.get('base2').valid && this.form.get('number1').valid) {
             this.num2 = this.convert(this.num1, this.base1, base2);
+          } else {
+            this.num2 = 'Invalid';
           }
         }
       )
