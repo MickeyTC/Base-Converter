@@ -14,25 +14,28 @@ import { BaseConverterService } from '../base-converter.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
   private subscriptions = new Subscription();
-  form: FormGroup;
-  num1 = '15';
-  num2 = '1111';
-  base1 = 10;
-  base2 = 2;
+
+  private form: FormGroup;
+  private num1 = '15';
+  private num2 = '1111';
+  private base1 = 10;
+  private base2 = 2;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    const numberPattern = '^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)?$';
+    const basePattern = '^[0-9]{1,2}$';
     this.subscriptions.add(
       this.route.paramMap.subscribe(params => {
         // this.num1 = params.get('num');
       })
     );
     this.form = this.fb.group({
-      'number1': [null, [Validators.required, this.baseCompatibleValidator('base1')]],
-      'base1': [null, [Validators.required, Validators.min(2), Validators.max(36)]],
-      'number2': [{ value: '', disabled: true }],
-      'base2': [null, [Validators.required, Validators.min(2), Validators.max(36)]]
+      'number1': [this.num1, [Validators.required, Validators.pattern(numberPattern), this.baseCompatibleValidator('base1')]],
+      'base1': [this.base1, [Validators.required, Validators.pattern(basePattern), Validators.min(2), Validators.max(36)]],
+      'number2': [{ value: this.num2, disabled: true }],
+      'base2': [this.base2, [Validators.required, Validators.pattern(basePattern), Validators.min(2), Validators.max(36)]]
     });
     this.subscriptions.add(
       this.form.get('number1').valueChanges.subscribe(
@@ -40,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.form.get('number1').markAsTouched();
           if (number1) { this.num1 = number1.toUpperCase(); }
           if (this.form.get('base1').valid && this.form.get('base2').valid && this.form.get('number1').valid) {
-            this.num2 = BaseConverterService.convert(number1, this.base1, this.base2);
+            this.num2 = this.convert(number1, this.base1, this.base2);
           }
         }
       )
@@ -51,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.form.get('base1').markAsTouched();
           this.form.get('number1').updateValueAndValidity();
           if (this.form.get('base1').valid && this.form.get('base2').valid && this.form.get('number1').valid) {
-            this.num2 = BaseConverterService.convert(this.num1, base1, this.base2);
+            this.num2 = this.convert(this.num1, base1, this.base2);
           }
         }
       )
@@ -61,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         (base2) => {
           this.form.get('base2').markAsTouched();
           if (this.form.get('base1').valid && this.form.get('base2').valid && this.form.get('number1').valid) {
-            this.num2 = BaseConverterService.convert(this.num1, this.base1, base2);
+            this.num2 = this.convert(this.num1, this.base1, base2);
           }
         }
       )
@@ -73,13 +76,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getBaseError(fc: FormControl): string {
-    // console.log(fc.errors);
-    return fc.errors.required ? 'Required' : fc.errors.min || fc.errors.max ? '2 <= Base <= 36' : '';
+    console.log('Base', fc.errors);
+    return fc.errors.required ? 'Required' :
+      fc.errors.min || fc.errors.max ? '2 <= Base <= 36' :
+        fc.errors.pattern ? 'Base must be Integer' : '';
   }
 
   getNumberError(fc: FormControl): string {
-    console.log(fc.errors);
-    return fc.errors.required ? 'Required' : fc.errors.baseCompatible ? 'Not Compatible Base' : '';
+    console.log('Number', fc.errors);
+    return fc.errors.required ? 'Required' :
+      fc.errors.pattern ? 'Must be Number' :
+        fc.errors.baseCompatible ? 'Not Compatible Base' : '';
   }
 
   baseCompatibleValidator(baseFormControlName: string): ValidatorFn {
@@ -91,12 +98,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (!baseControl) {
         throw new Error('baseCompatibleValidator(): Base FromControl is not found in parent FormGroup');
       }
+      const number = control.value;
       const base = baseControl.value;
-      console.log(base);
-      if (base === 4) {
-        return { 'baseCompatible': { 'base': base } };
-      }
-      return null;
+      console.log(number, base);
+      return BaseConverterService.isCompatible(number, base) ? null : { 'baseCompatible': { 'base': base } };
     };
+  }
+
+  convert(number: string, fromBase: number, toBase: number): string {
+    return BaseConverterService.convert(number, fromBase, toBase);
   }
 }

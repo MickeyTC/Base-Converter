@@ -33,4 +33,8 @@ export class BaseConverterService {
 
     return Number.parseInt(num, base) * Math.pow(base, -power);
   }
+
+  static isCompatible(num: string, base: number): boolean {
+    return true;
+  }
 }
