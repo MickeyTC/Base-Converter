@@ -1,7 +1,7 @@
+<button mat-raised-button [routerLink]="['home',{number:'111.01', from: '2', to:'10'}]">Example 1</button>
+<button mat-raised-button [routerLink]="['home',{number:'21.1', from: '3', to:'16'}]">Example 2</button>
+<button mat-raised-button [routerLink]="['home',{number:'example', from: '36', to:'16'}]">Example 3</button>
 <button mat-raised-button (click)="launchWindow()">Google</button>
-<button mat-raised-button [routerLink]="['home',{num:'100'}]" [routerLinkActive]="['active']">Home</button>
-<button mat-raised-button [routerLink]="['home',{num:'a'}]" routerLinkActive="active-link">Home2</button>
-<button mat-raised-button [routerLink]="['home',{num:'b'}]" routerLinkActive="active">Home3</button>
 <div class="container">
   <router-outlet></router-outlet>
 </div>

@@ -26,11 +26,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const numberPattern = '^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)?$';
     const basePattern = '^[0-9]{1,2}$';
-    this.subscriptions.add(
-      this.route.paramMap.subscribe(params => {
-        // this.num1 = params.get('num');
-      })
-    );
     this.form = this.fb.group({
       'number1': [this.num1, [Validators.required, Validators.pattern(numberPattern), this.baseCompatibleValidator('base1')]],
       'base1': [this.base1, [Validators.required, Validators.pattern(basePattern), Validators.min(2), Validators.max(36)]],
@@ -74,6 +69,19 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         }
       )
+    );
+    this.subscriptions.add(
+      this.route.paramMap.subscribe(params => {
+        if (params.has('number')) {
+          this.form.get('number1').setValue(params.get('number').toUpperCase());
+        }
+        if (params.has('from')) {
+          this.form.get('base1').setValue(params.get('from'));
+        }
+        if (params.has('to')) {
+          this.form.get('base2').setValue(params.get('to'));
+        }
+      })
     );
   }
 
