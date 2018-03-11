@@ -1,5 +1,5 @@
 {
-  "name": "car-service",
+  "name": "base-converter",
   "version": "1.0.0",
   "main": "main.js",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
     "ngx-electron": "^1.0.4",
+    "npm": "^5.7.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },

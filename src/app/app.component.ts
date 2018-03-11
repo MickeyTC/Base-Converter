@@ -9,9 +9,9 @@ import { ElectronService } from 'ngx-electron';
 export class AppComponent {
   title = 'app';
 
-  constructor(private _electronService: ElectronService) {}
+  constructor(private electron: ElectronService) {}
 
   launchWindow() {
-    this._electronService.shell.openExternal('https://www.google.co.th/');
+    this.electron.shell.openExternal('https://www.google.co.th/');
   }
 }
